@@ -12,7 +12,15 @@ function computerTurn() {
 
 function playerTurn() {
     const playerSign = prompt("Type your sign: ")
-    return playerSign.toLowerCase().trim()
+    if (!playerSign) {
+        if (playerSign === null)
+            return null
+        else
+            return false
+    }
+    else {
+        return playerSign.toLowerCase().trim()
+    }
 }
 
 function playRound(playerSign, computerSign) {
@@ -56,29 +64,38 @@ function playRound(playerSign, computerSign) {
                     return "player"
             }
             break
+        case null:
+            return null
         default:
-            console.log("Sorry, your sign is not valid.")
+            console.log(`Sorry, your sign is not valid. Round is off.`)
             break
     }
 }
 
 function game() {
-    const score = {player: 0, computer: 0}
-    for(let i = 0; i<5; i++) {
-        console.log(`ROUND ${i+1}`)
+    const score = { player: 0, computer: 0 }
+    for (let i = 0; i < 5; i++) {
+
+        console.log(`ROUND ${i + 1}`)
+
         const roundWinner = playRound(playerTurn(), computerTurn())
+        if (roundWinner === null) {
+            break
+        }
+
         switch (roundWinner) {
             case "player":
-                score.player = score.player+1;
+                score.player = score.player + 1;
                 break
             case "computer":
-                score.computer = score.computer+1;
+                score.computer = score.computer + 1;
                 break
             default:
                 break
         }
+
     }
-    console.log(score)
+    console.log(`Total score:\nComputer ${score.computer}\nYou ${score.player}`)
 }
 
 game()
