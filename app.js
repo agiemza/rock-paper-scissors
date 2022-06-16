@@ -21,39 +21,39 @@ function playRound(playerSign, computerSign) {
             switch (computerSign) {
                 case "paper":
                     console.log(`%c Your answer is ${playerSign} but computer's is ${computerSign} - YOU LOSE`, `color: red`)
-                    break
+                    return "computer"
                 case "rock":
                     console.log(`%c Your answer is ${playerSign}, computer's is also ${computerSign} - DRAFT`, `color: gray`)
-                    break
+                    return "draft"
                 case "scissors":
                     console.log(`%c Your answer is ${playerSign} and computer's is ${computerSign} - YOU WIN`, `color: green`)
-                    break
+                    return "player"
             }
             break
         case "paper":
             switch (computerSign) {
                 case "scissors":
                     console.log(`%c Your answer is ${playerSign} but computer's is ${computerSign} - YOU LOSE`, `color: red`)
-                    break
+                    return "computer"
                 case "paper":
                     console.log(`%c Your answer is ${playerSign}, computer's is also ${computerSign} - DRAFT`, `color: gray`)
-                    break
+                    return "draft"
                 case "rock":
                     console.log(`%c Your answer is ${playerSign} and computer's is ${computerSign} - YOU WIN`, `color: green`)
-                    break
+                    return "player"
             }
             break
         case "scissors":
             switch (computerSign) {
                 case "rock":
                     console.log(`%c Your answer is ${playerSign} but computer's is ${computerSign} - YOU LOSE`, `color: red`)
-                    break
+                    return "computer"
                 case "scissors":
                     console.log(`%c Your answer is ${playerSign}, computer's is also ${computerSign} - DRAFT`, `color: gray`)
-                    break
+                    return "draft"
                 case "paper":
                     console.log(`%c Your answer is ${playerSign} and computer's is ${computerSign} - YOU WIN`, `color: green`)
-                    break
+                    return "player"
             }
             break
         default:
@@ -62,4 +62,23 @@ function playRound(playerSign, computerSign) {
     }
 }
 
-playRound(playerTurn(), computerTurn())
+function game() {
+    const score = {player: 0, computer: 0}
+    for(let i = 0; i<5; i++) {
+        console.log(`ROUND ${i+1}`)
+        const roundWinner = playRound(playerTurn(), computerTurn())
+        switch (roundWinner) {
+            case "player":
+                score.player = score.player+1;
+                break
+            case "computer":
+                score.computer = score.computer+1;
+                break
+            default:
+                break
+        }
+    }
+    console.log(score)
+}
+
+game()
