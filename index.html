@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,15 +8,32 @@
     <link rel="stylesheet" href="style.css">
     <title>ROCK PAPER SCISSORS</title>
 </head>
+
 <body>
-    <div class="buttons-container">
-        <div class="round">Choose your weapon</div>
-        <div class="round-result">to start the game</div>
-        <button class="figure-button">Rock</button>
-        <button class="figure-button">Paper</button>
-        <button class="figure-button">Scissors</button>
-        <button class="reset-button hidden">Again</button>
-    </div>
+    <section class="root">
+        <section class="title-container">
+            <title>ROCK PAPER SCISSORS</title>
+        </section>
+        <section class="messages-container">
+            <div class="round">Choose your weapon</div>
+            <div class="round-result">to start the game</div>
+        </section>
+        <section class="score-container">
+            <div>Computer:</div>
+            <div class="computer-score"></div>
+            <div>You:</div>
+            <div class="player-score"></div>
+        </section>
+        <section class="reset-container">
+            <button class="reset-button hidden">Again</button>
+        </section class="reset-container">
+        <section class="buttons-container">
+            <button class="figure-button">Rock</button>
+            <button class="figure-button">Paper</button>
+            <button class="figure-button">Scissors</button>
+        </section>
+    </section>
     <script src="app.js"></script>
 </body>
+
 </html>
