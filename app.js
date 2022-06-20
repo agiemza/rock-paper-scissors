@@ -1,3 +1,24 @@
+const score = { player: 0, computer: 0, round: 1 }
+const roundResultDiv = document.querySelector(".round-result")
+const roundNumberDiv = document.querySelector(".round")
+const figureButtons = document.querySelectorAll(".figure-button")
+const resetButton = document.querySelector(".reset-button")
+
+figureButtons.forEach(button => {
+    button.addEventListener("click", (e) => {
+        game(e.target.innerText.toLowerCase())
+    })
+})
+
+resetButton.addEventListener('click', () => {
+    score.player = 0
+    score.computer = 0
+    score.round = 1
+    roundNumberDiv.textContent="Choose your weapon"
+    roundResultDiv.textContent="to start the game"
+    resetButton.classList.add('hidden')
+})
+
 function computerTurn() {
     const randomNumber = Math.floor((Math.random() * 3))
     switch (randomNumber) {
@@ -45,14 +66,11 @@ function playRound(playerSign, computerSign) {
     }
 }
 
-const score = { player: 0, computer: 0, round: 1 }
-
 function game(playerSign) {
-    const roundResultDiv = document.querySelector(".round-result")
-    const roundNumberDiv = document.querySelector(".round")
     roundNumberDiv.innerText = `ROUND ${score.round}/5`
 
     if (score.player !== 5 && score.computer !== 5) {
+
         const result = playRound(playerSign, computerTurn())
 
         switch (result.winner) {
@@ -71,7 +89,7 @@ function game(playerSign) {
 
         score.round++
     } else {
-
+        resetButton.classList.remove("hidden")
         if (score.player > score.computer)
             roundResultDiv.innerText = `You won with score of ${score.player} points to ${score.computer}`
         else
@@ -80,10 +98,3 @@ function game(playerSign) {
     }
 }
 
-const figureButtons = document.querySelectorAll(".figure-button")
-
-figureButtons.forEach(button => {
-    button.addEventListener("click", (e) => {
-        game(e.target.innerText.toLowerCase())
-    })
-})
