@@ -12,25 +12,35 @@
 <body>
     <section class="root">
         <section class="title-container">
-            <title>ROCK PAPER SCISSORS</title>
+            <h1>ROCK PAPER SCISSORS</h1>
         </section>
         <section class="messages-container">
-            <div class="round">Choose your weapon</div>
-            <div class="round-result">to start the game</div>
+            <div class="round">Round 1</div>
+            <div class="round-result">Point for you!</div>
         </section>
         <section class="score-container">
-            <div>Computer:</div>
-            <div class="computer-score"></div>
-            <div>You:</div>
-            <div class="player-score"></div>
+            <div class="score-left">
+                <div>Computer:</div>
+                <div class="computer-score">0</div>
+            </div>
+            <div class="score-right">
+                <div>You:</div>
+                <div class="player-score">0</div>
+            </div>
         </section>
-        <section class="reset-container">
-            <button class="reset-button hidden">Again</button>
-        </section class="reset-container">
         <section class="buttons-container">
-            <button class="figure-button">Rock</button>
-            <button class="figure-button">Paper</button>
-            <button class="figure-button">Scissors</button>
+            <button class="reset-button hidden">
+                <img src="/images/reset.png" alt="Restart">
+            </button>
+            <button class="figure-button" data-sign="rock">
+                <img src="/images/rock.png" alt="Rock">
+            </button>
+            <button class="figure-button" data-sign="paper">
+                <img src="/images/paper.png" alt="Paper">
+            </button>
+            <button class="figure-button" data-sign="scissors">
+                <img src="/images/scissors.png" alt="Scissors">
+            </button>
         </section>
     </section>
     <script src="app.js"></script>

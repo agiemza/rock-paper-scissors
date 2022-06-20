@@ -6,7 +6,7 @@ const resetButton = document.querySelector(".reset-button")
 
 figureButtons.forEach(button => {
     button.addEventListener("click", (e) => {
-        game(e.target.innerText.toLowerCase())
+        game(button.dataset.sign)
     })
 })
 
