@@ -10,91 +10,74 @@ function computerTurn() {
     }
 }
 
-function playerTurn() {
-    const playerSign = "rock"//prompt("Type your sign: ")
-    if (!playerSign) {
-        if (playerSign === null)
-            return null
-        else
-            return false
-    }
-    else {
-        return playerSign.toLowerCase().trim()
-    }
-}
-
 function playRound(playerSign, computerSign) {
     switch (playerSign) {
         case "rock":
             switch (computerSign) {
                 case "paper":
-                    console.log(`%c Your answer is ${playerSign} but computer's is ${computerSign} - YOU LOSE`, `color: red`)
-                    return "computer"
+                    return { computerSign: "paper", winner: "computer" }
                 case "rock":
-                    console.log(`%c Your answer is ${playerSign}, computer's is also ${computerSign} - DRAFT`, `color: gray`)
-                    return "draft"
+                    return { computerSign: "rock", winner: false }
                 case "scissors":
-                    console.log(`%c Your answer is ${playerSign} and computer's is ${computerSign} - YOU WIN`, `color: green`)
-                    return "player"
+                    return { computerSign: "scissors", winner: "player" }
             }
             break
         case "paper":
             switch (computerSign) {
                 case "scissors":
-                    console.log(`%c Your answer is ${playerSign} but computer's is ${computerSign} - YOU LOSE`, `color: red`)
-                    return "computer"
+                    return { computerSign: "scissors", winner: "computer" }
                 case "paper":
-                    console.log(`%c Your answer is ${playerSign}, computer's is also ${computerSign} - DRAFT`, `color: gray`)
-                    return "draft"
+                    return { computerSign: "paper", winner: false }
                 case "rock":
-                    console.log(`%c Your answer is ${playerSign} and computer's is ${computerSign} - YOU WIN`, `color: green`)
-                    return "player"
+                    return { computerSign: "rock", winner: "player" }
             }
             break
         case "scissors":
             switch (computerSign) {
                 case "rock":
-                    console.log(`%c Your answer is ${playerSign} but computer's is ${computerSign} - YOU LOSE`, `color: red`)
-                    return "computer"
+                    return { computerSign: "rock", winner: "computer" }
                 case "scissors":
-                    console.log(`%c Your answer is ${playerSign}, computer's is also ${computerSign} - DRAFT`, `color: gray`)
-                    return "draft"
+                    return { computerSign: "scissors", winner: false }
                 case "paper":
-                    console.log(`%c Your answer is ${playerSign} and computer's is ${computerSign} - YOU WIN`, `color: green`)
-                    return "player"
+                    return { computerSign: "paper", winner: "player" }
             }
             break
     }
 }
 
+const score = { player: 0, computer: 0, round: 1 }
+
 function game(playerSign) {
-    const score = { player: 0, computer: 0 }
+    const roundResultDiv = document.querySelector(".round-result")
+    const roundNumberDiv = document.querySelector(".round")
+    roundNumberDiv.innerText = `ROUND ${score.round}/5`
 
-    const roundWinner = playRound(playerSign, computerTurn())
-    const resultDiv = document.querySelector(".result")
-    resultDiv.innerText = `${roundWinner} wins this round!`
-    //     for (let i = 0; i < 5; i++) {
+    if (score.player !== 5 && score.computer !== 5) {
+        const result = playRound(playerSign, computerTurn())
 
-    // //         console.log(`ROUND ${i + 1}`)
+        switch (result.winner) {
+            case "player":
+                roundResultDiv.innerText = `You get a point! Your sign: ${playerSign.toLowerCase()}, computer's sign: ${result.computerSign}`
+                score.player = score.player + 1;
+                break
+            case "computer":
+                roundResultDiv.innerText = `Computer gets a poin! Your sign: ${playerSign.toLowerCase()}, computer's sign: ${result.computerSign}`
+                score.computer = score.computer + 1;
+                break
+            default:
+                roundResultDiv.innerText = `Draft - You both choose ${playerSign}`
+                break
+        }
 
-    //         const roundWinner = playRound(playerTurn(), computerTurn())
-    //         // if (roundWinner === null) {
-    //         //     break
-    //         // }
+        score.round++
+    } else {
 
-    // switch (roundWinner) {
-    //     case "player":
-    //         score.player = score.player + 1;
-    //         break
-    //     case "computer":
-    //         score.computer = score.computer + 1;
-    //         break
-    //     default:
-    //         break
-    // }
+        if (score.player > score.computer)
+            roundResultDiv.innerText = `You won with score of ${score.player} points to ${score.computer}`
+        else
+            roundResultDiv.innerText = `Computer won  with score of ${score.computer} points to ${score.player}`
 
-    //    }
-    console.log(`Total score:\nComputer ${score.computer}\nYou ${score.player}`)
+    }
 }
 
 const figureButtons = document.querySelectorAll(".figure-button")
