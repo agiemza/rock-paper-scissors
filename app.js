@@ -14,8 +14,8 @@ resetButton.addEventListener('click', () => {
     score.player = 0
     score.computer = 0
     score.round = 1
-    roundNumberDiv.textContent="Choose your weapon"
-    roundResultDiv.textContent="to start the game"
+    roundNumberDiv.textContent = "Choose your weapon"
+    roundResultDiv.textContent = "to start new game"
     resetButton.classList.add('hidden')
 })
 
@@ -67,7 +67,7 @@ function playRound(playerSign, computerSign) {
 }
 
 function game(playerSign) {
-    roundNumberDiv.innerText = `ROUND ${score.round}/5`
+    roundNumberDiv.innerText = `ROUND ${score.round}`
 
     if (score.player !== 5 && score.computer !== 5) {
 
@@ -79,11 +79,11 @@ function game(playerSign) {
                 score.player = score.player + 1;
                 break
             case "computer":
-                roundResultDiv.innerText = `Computer gets a poin! Your sign: ${playerSign.toLowerCase()}, computer's sign: ${result.computerSign}`
+                roundResultDiv.innerText = `Computer gets a point! Your sign: ${playerSign.toLowerCase()}, computer's sign: ${result.computerSign}`
                 score.computer = score.computer + 1;
                 break
             default:
-                roundResultDiv.innerText = `Draft - You both choose ${playerSign}`
+                roundResultDiv.innerText = `Draft - both of you chose: ${playerSign}`
                 break
         }
 
@@ -91,10 +91,9 @@ function game(playerSign) {
     } else {
         resetButton.classList.remove("hidden")
         if (score.player > score.computer)
-            roundResultDiv.innerText = `You won with score of ${score.player} points to ${score.computer}`
+            roundResultDiv.innerText = `You won with the score of ${score.player} to ${score.computer}`
         else
-            roundResultDiv.innerText = `Computer won  with score of ${score.computer} points to ${score.player}`
+            roundResultDiv.innerText = `Computer won with the score of ${score.computer} to ${score.player}`
 
     }
 }
-
