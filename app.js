@@ -11,7 +11,7 @@ function computerTurn() {
 }
 
 function playerTurn() {
-    const playerSign = prompt("Type your sign: ")
+    const playerSign = "rock"//prompt("Type your sign: ")
     if (!playerSign) {
         if (playerSign === null)
             return null
@@ -64,38 +64,43 @@ function playRound(playerSign, computerSign) {
                     return "player"
             }
             break
-        case null:
-            return null
-        default:
-            console.log(`Sorry, your sign is not valid. Round is off.`)
-            break
     }
 }
 
-function game() {
+function game(playerSign) {
     const score = { player: 0, computer: 0 }
-    for (let i = 0; i < 5; i++) {
 
-        console.log(`ROUND ${i + 1}`)
+    const roundWinner = playRound(playerSign, computerTurn())
+    const resultDiv = document.querySelector(".result")
+    resultDiv.innerText = `${roundWinner} wins this round!`
+    //     for (let i = 0; i < 5; i++) {
 
-        const roundWinner = playRound(playerTurn(), computerTurn())
-        if (roundWinner === null) {
-            break
-        }
+    // //         console.log(`ROUND ${i + 1}`)
 
-        switch (roundWinner) {
-            case "player":
-                score.player = score.player + 1;
-                break
-            case "computer":
-                score.computer = score.computer + 1;
-                break
-            default:
-                break
-        }
+    //         const roundWinner = playRound(playerTurn(), computerTurn())
+    //         // if (roundWinner === null) {
+    //         //     break
+    //         // }
 
-    }
+    // switch (roundWinner) {
+    //     case "player":
+    //         score.player = score.player + 1;
+    //         break
+    //     case "computer":
+    //         score.computer = score.computer + 1;
+    //         break
+    //     default:
+    //         break
+    // }
+
+    //    }
     console.log(`Total score:\nComputer ${score.computer}\nYou ${score.player}`)
 }
 
-game()
+const figureButtons = document.querySelectorAll(".figure-button")
+
+figureButtons.forEach(button => {
+    button.addEventListener("click", (e) => {
+        game(e.target.innerText.toLowerCase())
+    })
+})
