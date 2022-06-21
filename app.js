@@ -14,15 +14,7 @@ figureButtons.forEach(button => {
     })
 })
 
-resetButton.addEventListener("click", () => {
-    score.player = 5
-    score.computer = 5
-    score.round = 1
-    roundNumberDiv.textContent = "Choose your weapon"
-    roundResultDiv.textContent = "to start new game"
-    resetButton.classList.add("hidden")
-    controls.classList.remove("hidden")
-})
+resetButton.addEventListener("click", resetGame)
 
 function computerTurn() {
     const randomNumber = Math.floor((Math.random() * 3))
@@ -71,14 +63,24 @@ function playRound(playerSign, computerSign) {
     }
 }
 
-function showScore() {
-    
+function resetGame() {
+    score.player = 5
+    score.computer = 5
+    score.round = 1
+    roundNumberDiv.textContent = "Choose your weapon"
+    roundResultDiv.textContent = "to start new game"
+    resetButton.classList.toggle("hidden")
+    controls.classList.toggle("hidden")
+    showScore()
+}
+
+function showScore() {    
     playerScoreContainer.innerText = score.player
     computerScoreContainer.innerText = score.computer
 
     if (score.player === 0 || score.computer === 0) {
-        resetButton.classList.remove("hidden")
-        controls.classList.add("hidden")
+        resetButton.classList.toggle("hidden")
+        controls.classList.toggle("hidden")
         if (score.player > score.computer)
             roundResultDiv.innerText = `You won with the score of ${score.player} to ${score.computer}`
         else
@@ -119,3 +121,5 @@ function game(playerSign) {
         score.round++
     }
 }
+
+resetGame()
