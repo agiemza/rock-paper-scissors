@@ -76,6 +76,7 @@
     margin: 10px 0;
     text-align: center;
 }
+
 .circle {
     display: flex;
     flex-direction: column;
@@ -134,22 +135,21 @@
 .buttons-container img {
     width: 100%;
 }
-
+.controls {
+    display: flex;
+}
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 .pulseGreen {
     animation-name: pulseGreen;
-
 }
 
 .pulseRed {
     animation-name: pulseRed;
-
 }
 
 .pulseGray {
     animation-name: pulseGray;
-
 }

@@ -1,9 +1,12 @@
-const score = { player: 0, computer: 0, round: 1 }
+const score = { player: 5, computer: 5, round: 1 }
 const roundResultDiv = document.querySelector(".round-result")
 const roundNumberDiv = document.querySelector(".round")
 const figureButtons = document.querySelectorAll(".figure-button")
 const resetButton = document.querySelector(".reset-button")
+const controls = document.querySelector(".controls")
 const circle = document.querySelector(".circle")
+const playerScoreContainer = document.querySelector(".player-score")
+const computerScoreContainer = document.querySelector(".computer-score")
 
 figureButtons.forEach(button => {
     button.addEventListener("click", (e) => {
@@ -11,13 +14,14 @@ figureButtons.forEach(button => {
     })
 })
 
-resetButton.addEventListener('click', () => {
-    score.player = 0
-    score.computer = 0
+resetButton.addEventListener("click", () => {
+    score.player = 5
+    score.computer = 5
     score.round = 1
     roundNumberDiv.textContent = "Choose your weapon"
     roundResultDiv.textContent = "to start new game"
-    resetButton.classList.add('hidden')
+    resetButton.classList.add("hidden")
+    controls.classList.remove("hidden")
 })
 
 function computerTurn() {
@@ -67,12 +71,27 @@ function playRound(playerSign, computerSign) {
     }
 }
 
+function showScore() {
+    
+    playerScoreContainer.innerText = score.player
+    computerScoreContainer.innerText = score.computer
+
+    if (score.player === 0 || score.computer === 0) {
+        resetButton.classList.remove("hidden")
+        controls.classList.add("hidden")
+        if (score.player > score.computer)
+            roundResultDiv.innerText = `You won with the score of ${score.player} to ${score.computer}`
+        else
+            roundResultDiv.innerText = `Computer won with the score of ${score.computer} to ${score.player}`    
+    }
+}
+
 function game(playerSign) {
 
     roundNumberDiv.innerText = `ROUND ${score.round}`
     circle.classList.remove("pulseGreen", "pulseRed", "pulseGray")
 
-    if (score.player !== 5 && score.computer !== 5) {
+    if (score.player !== 0 && score.computer !== 0) {
 
         const result = playRound(playerSign, computerTurn())
 
@@ -81,13 +100,13 @@ function game(playerSign) {
                 void circle.offsetWidth
                 circle.classList.add("pulseGreen")
                 roundResultDiv.innerText = `You get a point! Your sign: ${playerSign.toLowerCase()}, computer's sign: ${result.computerSign}`
-                score.player = score.player + 1;
+                score.computer--
                 break
             case "computer":
                 void circle.offsetWidth
                 circle.classList.add("pulseRed")
                 roundResultDiv.innerText = `Computer gets a point! Your sign: ${playerSign.toLowerCase()}, computer's sign: ${result.computerSign}`
-                score.computer = score.computer + 1;
+                score.player--
                 break
             default:
                 void circle.offsetWidth
@@ -96,13 +115,7 @@ function game(playerSign) {
                 break
         }
 
+        showScore()
         score.round++
-    } else {
-        resetButton.classList.remove("hidden")
-        if (score.player > score.computer)
-            roundResultDiv.innerText = `You won with the score of ${score.player} to ${score.computer}`
-        else
-            roundResultDiv.innerText = `Computer won with the score of ${score.computer} to ${score.player}`
-
     }
 }
