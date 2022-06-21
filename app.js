@@ -3,6 +3,7 @@ const roundResultDiv = document.querySelector(".round-result")
 const roundNumberDiv = document.querySelector(".round")
 const figureButtons = document.querySelectorAll(".figure-button")
 const resetButton = document.querySelector(".reset-button")
+const circle = document.querySelector(".circle")
 
 figureButtons.forEach(button => {
     button.addEventListener("click", (e) => {
@@ -67,7 +68,9 @@ function playRound(playerSign, computerSign) {
 }
 
 function game(playerSign) {
+
     roundNumberDiv.innerText = `ROUND ${score.round}`
+    circle.classList.remove("pulseGreen", "pulseRed", "pulseGray")
 
     if (score.player !== 5 && score.computer !== 5) {
 
@@ -75,14 +78,20 @@ function game(playerSign) {
 
         switch (result.winner) {
             case "player":
+                void circle.offsetWidth
+                circle.classList.add("pulseGreen")
                 roundResultDiv.innerText = `You get a point! Your sign: ${playerSign.toLowerCase()}, computer's sign: ${result.computerSign}`
                 score.player = score.player + 1;
                 break
             case "computer":
+                void circle.offsetWidth
+                circle.classList.add("pulseRed")
                 roundResultDiv.innerText = `Computer gets a point! Your sign: ${playerSign.toLowerCase()}, computer's sign: ${result.computerSign}`
                 score.computer = score.computer + 1;
                 break
             default:
+                void circle.offsetWidth
+                circle.classList.add("pulseGray")
                 roundResultDiv.innerText = `Draft - both of you chose: ${playerSign}`
                 break
         }
