@@ -86,9 +86,9 @@ function showScore() {
         resetButton.classList.toggle("hidden")
         controls.classList.toggle("hidden")
         if (score.player > score.computer)
-            roundResultDiv.innerText = `You won with  ${score.player} ${score.player === 1 ? `life` : `lives`} left`
+            roundResultDiv.innerText = `You won the game with  ${score.player} ${score.player === 1 ? `life` : `lives`} left`
         else
-            roundResultDiv.innerText = `Computer won with ${score.computer} ${score.computer === 1 ? `life` : `lives`} left`
+            roundResultDiv.innerText = `Computer won the game with ${score.computer} ${score.computer === 1 ? `life` : `lives`} left`
     }
 }
 
@@ -133,7 +133,7 @@ function game(playerSign) {
         default:
             void circle.offsetWidth
             circle.classList.add("pulse-gray")
-            roundResultDiv.innerText = `Draft! ${playerSign}`
+            roundResultDiv.innerText = `Draft!`
             break
     }
 
