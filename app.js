@@ -7,6 +7,8 @@ const controls = document.querySelector(".controls")
 const circle = document.querySelector(".circle")
 const playerScoreContainer = document.querySelector(".player-score")
 const computerScoreContainer = document.querySelector(".computer-score")
+const playerSide = document.querySelector(".player-side")
+const computerSide = document.querySelector(".computer-side")
 
 figureButtons.forEach(button => {
     button.addEventListener("click", (e) => {
@@ -68,7 +70,9 @@ function resetGame() {
     score.computer = 5
     score.round = 1
     roundNumberDiv.textContent = ""
-    roundResultDiv.textContent = "to start new game"
+    roundResultDiv.textContent = "Choose your weapon to start!"
+    playerSide.classList.remove("show-player-figure")
+    computerSide.classList.remove("show-computer-figure")
     resetButton.classList.toggle("hidden")
     controls.classList.toggle("hidden")
     showScore()
@@ -82,37 +86,57 @@ function showScore() {
         resetButton.classList.toggle("hidden")
         controls.classList.toggle("hidden")
         if (score.player > score.computer)
-            roundResultDiv.innerText = `You won with the score of ${score.player} to ${score.computer}`
+            roundResultDiv.innerText = `You won with  ${score.player} ${score.player === 1 ? `life` : `lives`} left`
         else
-            roundResultDiv.innerText = `Computer won with the score of ${score.computer} to ${score.player}`
+            roundResultDiv.innerText = `Computer won with ${score.computer} ${score.computer === 1 ? `life` : `lives`} left`
     }
+}
+
+function handleBattleAnimation(playerSign, computerSign) {
+    playerSide.querySelectorAll('img').forEach(img => img.classList.add('hidden'))
+    computerSide.querySelectorAll('img').forEach(img => img.classList.add('hidden'))
+
+    playerSide.classList.remove("show-player-figure")
+    computerSide.classList.remove("show-computer-figure")
+
+    void playerSide.offsetWidth
+    void computerSide.offsetWidth
+
+    playerSide.classList.add("show-player-figure")
+    playerSide.querySelector(`.${playerSign}`).classList.remove('hidden')
+
+    computerSide.classList.add("show-computer-figure")
+    computerSide.querySelector(`.${computerSign}`).classList.remove('hidden')
 }
 
 function game(playerSign) {
 
     roundNumberDiv.innerText = `ROUND ${score.round}`
-    circle.classList.remove("pulseGreen", "pulseRed", "pulseGray")
+    circle.classList.remove("pulse-green", "pulse-red", "pulse-gray")
     const result = playRound(playerSign, computerTurn())
+
+    handleBattleAnimation(playerSign, result.computerSign)
 
     switch (result.winner) {
         case "player":
             void circle.offsetWidth
-            circle.classList.add("pulseGreen")
-            roundResultDiv.innerText = `You get a point! Your sign: ${playerSign.toLowerCase()}, computer's sign: ${result.computerSign}`
+            circle.classList.add("pulse-green")
+            roundResultDiv.innerText = `You win!`
             score.computer--
             break
         case "computer":
             void circle.offsetWidth
-            circle.classList.add("pulseRed")
-            roundResultDiv.innerText = `Computer gets a point! Your sign: ${playerSign.toLowerCase()}, computer's sign: ${result.computerSign}`
+            circle.classList.add("pulse-red")
+            roundResultDiv.innerText = `Computer wins!`
             score.player--
             break
         default:
             void circle.offsetWidth
-            circle.classList.add("pulseGray")
-            roundResultDiv.innerText = `Draft - both of you chose: ${playerSign}`
+            circle.classList.add("pulse-gray")
+            roundResultDiv.innerText = `Draft! ${playerSign}`
             break
     }
+
     showScore()
     score.round++
 }
